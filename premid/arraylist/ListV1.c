@@ -24,9 +24,13 @@ int main(){
 	L = insertPos(L, 35, 4);
 	L = insertPos(L, 17, 2);
 	L = deletePos(L, 2);
+	L = insertSorted(L, 17);
 	
 	int pos = locate(L, 14);
 	printf("Position: %d\n", pos);
+
+	display(L);
+
 }
 
 List initialize(List L){
@@ -80,5 +84,28 @@ int locate(List L, int data){
 }
 
 List insertSorted(List L, int data){
-	
+    int pos = 0;
+    int i,j;
+    for(i = 0; i < L.count && L.elem[i] < data; i++){}
+    pos = i;
+    for(i = L.count - 1, j = L.count; j > pos; i--, j--){
+        L.elem[j] = L.elem[i];
+    }
+    (L.count)++;
+    L.elem[pos] = data;
+    
+    return L;
+}
+
+void display(List L){
+	int i;
+	printf("List: ");
+	for(i = 0; i < L.count; i++){
+		if(i < L.count - 1){
+			printf("%d, ", L.elem[i]);
+		} else {
+			printf("%d", L.elem[i]);
+		}
+	}
+	printf("\n");
 }
