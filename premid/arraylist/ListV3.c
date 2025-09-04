@@ -63,6 +63,51 @@ List deletePos(List L, int pos){
     return L;
 }
 
+List insertSorted(List L , int data){
+    if(L.count == L.max){
+        resize(L);
+    }
+    int i, j;
+    for(i = 0; i < L.count && L.elemPtr[i] < data; i++){}
+    int pos = i;
+    for(i = L.count - 1, j = L.count; j > pos; i--, j--){
+        L.elemPtr[j] = L.elemPtr[i]; 
+    }
+    L.elemPtr[pos] = data;
+    (L.count)++;
+
+    return L;
+}
+
+int locate(List L, int data){
+    int i;
+    for(i = 0; i < L.count && L.elemPtr[i] != data; i++){}
+    return(i == L.count)? -1 : i; 
+}
+
+int retrieve(List L, int position){
+    int i;
+    if(position >= 0 && position < L.count){
+        for(i = 0; i < L.count && i != position; i++){}   
+    } else {
+        printf("Position invalid.\n");
+    }
+    return(position >= 0 && position < L.count)? L.elemPtr[i] : -1;
+}
+
+void display(List L){
+    int i;
+    printf("List: ");
+    for(i = 0; i < L.count; i++){
+        printf("%d ", L.elemPtr[i]);
+    }
+    printf("\n");
+}
+
+void makeNull(List L){
+    free(L.elemPtr);
+}
+
 int main() {
     List L = initialize(L);
     L = insertPos(L, 7, 0);
@@ -70,6 +115,13 @@ int main() {
     L = insertPos(L, 21, 2);
     L = insertPos(L, 17, 2);
     L = deletePos(L, 2);
+    L = insertSorted(L, 19);
+    display(L);
+    int index = locate(L, 19);
+    printf("Index of the data: %d\n", index);
+    int position = retrieve(L, 2);
+    printf("Data in the position: %d\n", position);
+    makeNull(L);
 
     return 0;
 }

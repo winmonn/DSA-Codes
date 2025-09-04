@@ -3,8 +3,6 @@
 
 #define LENGTH 3
 
-// typedef int elem[LENGTH];
-
 typedef struct {
     int* elemPtr;
     int count;
