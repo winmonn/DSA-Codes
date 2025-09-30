@@ -49,7 +49,17 @@ unsigned char Difference(unsigned char A, unsigned char B){
     return A & ~(B);
 }
 
-void display(unsigned char set){
+void displaySet(unsigned char set){
+    int max = 8 * sizeof(set);
+    for(int i = 0; i < max; i++){
+        if(set &  (1 << i)){
+            printf("%d ", i);
+        }
+    }
+    printf("\n");
+}
+
+void displayBits(unsigned char set){
     int max = 8 * sizeof(set);
     printf("Set:");
     int i = 0;
@@ -80,11 +90,16 @@ int main() {
     unsigned char U = Union(A, B);
     unsigned char I = Intersection(A, B);
     unsigned char D = Difference(A, B);
-    display(A);
-    display(B);
-    display(U);
-    display(I);
-    display(D);
-
+    displayBits(A);
+    displaySet(A);
+    displayBits(B);
+    displaySet(B);
+    displayBits(U);
+    displaySet(U);
+    displayBits(I);
+    displaySet(I);
+    displayBits(D);
+    displaySet(D);
+    
     return 0;
 }
